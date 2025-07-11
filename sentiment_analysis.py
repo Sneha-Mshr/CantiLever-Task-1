@@ -8,39 +8,41 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-# Step 1: Download NLTK movie review dataset
+# Download NLTK movie review dataset
 nltk.download('movie_reviews')
 
-# Step 2: Load the dataset (words + labels)
+# Load the dataset (words + labels)
 documents = [(list(movie_reviews.words(fileid)), category)
              for category in movie_reviews.categories()
              for fileid in movie_reviews.fileids(category)]
 
-# Step 3: Shuffle data to avoid bias
+# Shuffle data to avoid bias
 random.shuffle(documents)
 
-# Step 4: Convert list of words to string sentences
+# Convert list of words to string sentences
 X = [" ".join(words) for words, label in documents]
 y = [label for words, label in documents]  # 'pos' or 'neg'
 
-# Step 5: Convert text to feature vectors (Bag of Words)
+# Convert text to feature vectors (Bag of Words)
 vectorizer = CountVectorizer()
 X_features = vectorizer.fit_transform(X)
 
-# Step 6: Split into training and testing sets (80% - 20%)
+#  Split into training and testing sets (80% - 20%)
 X_train, X_test, y_train, y_test = train_test_split(
     X_features, y, test_size=0.2, random_state=42)
 
-# Step 7: Train a Naive Bayes classifier
+#  Train a Naive Bayes classifier
 model = MultinomialNB()
 model.fit(X_train, y_train)
 
-# Step 8: Make predictions and check accuracy
+# Make predictions and check accuracy
 y_pred = model.predict(X_test)
 print("Model Accuracy:", accuracy_score(y_test, y_pred))
 
-# Step 9: Try your own review
+# Try your own review
 sample_review = ["The movie was boring and too long."]
-sample_features = vectorizer.transform(sample_review)
+
+user_review = input("Enter your movie review: ")
+sample_features = vectorizer.transform([user_review])
 prediction = model.predict(sample_features)[0]
 print("Your Review Sentiment:", prediction)
