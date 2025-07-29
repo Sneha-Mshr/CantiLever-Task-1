@@ -1,4 +1,4 @@
-# 🎭 Sentiment Analysis System - Cantilever Internship Project
+# 🎭 Sentiment Analysis System
 
 ## 📌 Description
 This project analyzes movie reviews and classifies them as **Positive** or **Negative** using Natural Language Processing (NLP) techniques.
